@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flooring Calculator</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Laminate Flooring Calculator</h1>
+        
+        <div class="controls">
+            <div class="control-group">
+                <h2>Room Selection</h2>
+                <div class="input-group">
+                    <label for="room-preset">Select Room:</label>
+                    <select id="room-preset">
+                        <option value="custom" selected>Custom Dimensions</option>
+                        <optgroup label="Ground Floor">
+                            <option value="entrance">Entrance Hall (3.10m x 0.90m)</option>
+                            <option value="lounge">Lounge (5.10m x 3.50m)</option>
+                            <option value="kitchen">Kitchen/Diner (2.63m x 4.60m)</option>
+                            <option value="conservatory">Conservatory (3.03m x 4.26m)</option>
+                        </optgroup>
+                        <optgroup label="1st Floor">
+                            <option value="bedroom1">Bedroom 1 (3.83m x 4.60m)</option>
+                            <option value="bedroom2">Bedroom 2 (Ioana's Office) (2.70m x 2.70m)</option>
+                            <option value="bedroom3">Bedroom 3 (Mat's Office) (2.70m x 1.80m)</option>
+                            <option value="shower">Shower Room (1.80m x 1.70m)</option>
+                        </optgroup>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="control-group">
+                <h2>Room Dimensions</h2>
+                <div class="input-group">
+                    <label for="room-width">Width (m):</label>
+                    <input type="number" id="room-width" min="1" step="0.1" value="4">
+                </div>
+                <div class="input-group">
+                    <label for="room-length">Length (m):</label>
+                    <input type="number" id="room-length" min="1" step="0.1" value="5">
+                </div>
+                <div class="input-group checkbox-group">
+                    <input type="checkbox" id="flip-room-dimensions" name="flip-room-dimensions">
+                    <label for="flip-room-dimensions">Flip Room Width/Length</label>
+                </div>
+            </div>
+            
+            <div class="control-group">
+                <h2>Plank Dimensions</h2>
+                <div class="input-group">
+                    <label for="plank-width">Width (cm):</label>
+                    <input type="number" id="plank-width" min="10" step="0.1" value="19.2">
+                </div>
+                <div class="input-group">
+                    <label for="plank-length">Length (cm):</label>
+                    <input type="number" id="plank-length" min="30" step="0.1" value="128.5">
+                </div>
+                <div class="input-group checkbox-group">
+                    <input type="checkbox" id="flip-dimensions" name="flip-dimensions">
+                    <label for="flip-dimensions">Flip Plank Width/Length</label>
+                </div>
+            </div>
+            
+            <div class="control-group">
+                <h2>Pack Details</h2>
+                <div class="input-group">
+                    <label for="planks-per-pack">Planks per Pack:</label>
+                    <input type="number" id="planks-per-pack" min="1" step="1" value="6">
+                </div>
+                <div class="input-group">
+                    <label for="price-per-pack">Price per Pack (£):</label>
+                    <input type="number" id="price-per-pack" min="0" step="0.01" value="22.65">
+                </div>
+            </div>
+            
+            <div class="control-group">
+                <h2>Layout Options</h2>
+                <div class="input-group">
+                    <label for="starting-corner">Starting Corner:</label>
+                    <select id="starting-corner">
+                        <option value="top-left" selected>Top Left</option>
+                        <option value="top-right">Top Right</option>
+                        <option value="bottom-left">Bottom Left</option>
+                        <option value="bottom-right">Bottom Right</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label for="offset">Offset Ratio:</label>
+                    <select id="offset">
+                        <option value="0">No offset</option>
+                        <option value="0.5" selected>50% (Half)</option>
+                        <option value="0.33">33% (Third)</option>
+                        <option value="0.25">25% (Quarter)</option>
+                        <option value="custom">Custom</option>
+                    </select>
+                </div>
+                <div class="input-group" id="custom-offset-group" style="display: none;">
+                    <label for="custom-offset">Custom Offset (0-1):</label>
+                    <input type="number" id="custom-offset" min="0" max="1" step="0.01" value="0.5">
+                </div>
+            </div>
+            
+            <button id="calculate-btn">Calculate & Visualize</button>
+        </div>
+        
+        <div class="results">
+            <div class="stats">
+                <div>Total Planks: <span id="total-planks">0</span></div>
+                <div>Full Planks: <span id="full-planks">0</span></div>
+                <div>Cut Planks: <span id="cut-planks">0</span></div>
+            </div>
+            
+            <div class="stats cost-stats">
+                <div>Packs Required: <span id="packs-required">0</span></div>
+                <div>Leftover Planks: <span id="leftover-planks">0</span></div>
+                <div>Total Cost: £<span id="total-cost">0.00</span></div>
+            </div>
+            
+            <div class="visualization-wrapper">
+                <div class="room-container">
+                    <div id="room-visualization"></div>
+                </div>
+                
+                <div class="offcuts-container" id="offcuts-list">
+                    <div class="offcuts-title">Cutting List - Required Pieces</div>
+                    <!-- Offcuts will be added here dynamically -->
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html> 
