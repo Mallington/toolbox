@@ -213,6 +213,8 @@ button:hover {
 
 .cost-stats {
     margin-top: 10px;
+    background-color: var(--cost-stats-bg);
+    border: 1px solid var(--cost-stats-border);
 }
 
 .cost-stats div {
@@ -220,10 +222,20 @@ button:hover {
     border: 1px solid var(--cost-stats-border);
 }
 
-.cost-stats div:last-child {
+.cost-stats div:last-of-type:not(.optimization-note) {
     background-color: var(--cost-total-bg);
     font-size: 1.1em;
     color: var(--cost-total-color);
+}
+
+.optimization-note {
+    font-size: 0.8rem;
+    font-style: italic;
+    margin-top: 5px;
+    text-align: center;
+    color: var(--subheading-color);
+    background-color: transparent !important;
+    border: none !important;
 }
 
 /* Visualization area */

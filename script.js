@@ -267,9 +267,6 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Display offcuts list
         displayOffcutsList(cutPieces, actualPlankLength, actualPlankWidth, fullPlanks);
-        
-        // Update cost calculations
-        updateCostCalculations(totalPlanks);
     }
     
     // Display the offcuts list with visualizations
@@ -379,6 +376,9 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Add to offcuts list
         offcutsList.appendChild(fullPlankItem);
+        
+        // Use optimized cost calculation that considers offcut reuse
+        updateOptimizedCostCalculations(cutPieces, fullPlankLength, plankWidth);
     }
     
     // Add dimension indicators to the visualization
@@ -420,6 +420,82 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Update display
         packsRequiredSpan.textContent = packsRequired;
+        leftoverPlanksSpan.textContent = leftoverPlanks;
+        totalCostSpan.textContent = totalCost.toFixed(2);
+    }
+    
+    // Calculate optimized cost considering offcut reuse
+    function updateOptimizedCostCalculations(cutPieces, fullPlankLength, actualPlankWidth) {
+        // Get the number of full planks needed
+        const fullPlanksNeeded = parseInt(fullPlanksSpan.textContent) || 0;
+        
+        // Get pack details
+        const planksPerPack = parseInt(planksPerPackInput.value) || 1;
+        const pricePerPack = parseFloat(pricePerPackInput.value) || 0;
+        
+        // Create a list of all cut pieces
+        let allCutPieces = [];
+        for (const key in cutPieces) {
+            const piece = cutPieces[key];
+            for (let i = 0; i < piece.quantity; i++) {
+                allCutPieces.push({
+                    width: piece.width,
+                    length: piece.length,
+                    ratio: piece.ratio
+                });
+            }
+        }
+        
+        // Sort all cut pieces by length (descending)
+        allCutPieces.sort((a, b) => b.length - a.length);
+        
+        // Initialize plank usage
+        let planksUsed = fullPlanksNeeded;
+        let currentOffcuts = [];
+        
+        // Process all cut pieces to see how many can fit in offcuts
+        for (const piece of allCutPieces) {
+            // Check if there's an existing offcut that can fit this piece
+            let foundOffcut = false;
+            
+            for (let i = 0; i < currentOffcuts.length; i++) {
+                const offcut = currentOffcuts[i];
+                if (offcut.remainingLength >= piece.length) {
+                    // We can fit this piece in this offcut
+                    offcut.remainingLength -= piece.length;
+                    foundOffcut = true;
+                    break;
+                }
+            }
+            
+            if (!foundOffcut) {
+                // Need to use a new plank
+                planksUsed++;
+                // Add the remaining part as an offcut
+                const remainingLength = fullPlankLength - piece.length;
+                if (remainingLength > 0) {
+                    currentOffcuts.push({
+                        width: actualPlankWidth,
+                        remainingLength: remainingLength
+                    });
+                }
+            }
+        }
+        
+        // Sort offcuts by remaining length (ascending) for better display
+        currentOffcuts.sort((a, b) => a.remainingLength - b.remainingLength);
+        
+        // Calculate packs required based on optimized plank usage
+        const optimizedPacksRequired = Math.ceil(planksUsed / planksPerPack);
+        
+        // Calculate leftover planks
+        const leftoverPlanks = (optimizedPacksRequired * planksPerPack) - planksUsed;
+        
+        // Calculate total cost
+        const totalCost = optimizedPacksRequired * pricePerPack;
+        
+        // Update display
+        packsRequiredSpan.textContent = optimizedPacksRequired;
         leftoverPlanksSpan.textContent = leftoverPlanks;
         totalCostSpan.textContent = totalCost.toFixed(2);
     }
