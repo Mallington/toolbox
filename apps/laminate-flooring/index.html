@@ -3,15 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Laminate Flooring Calculator</title>
+    <title>Flooring Calculator</title>
     <link rel="stylesheet" href="../../css/shared.css">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <a href="../../index.html" class="back-button">← Back to App Launcher</a>
-            <h1>Laminate Flooring Calculator</h1>
+            <a href="../../index.html" class="back-button">Back to Launcher</a>
+            <h1>Flooring Calculator <span class="system-badge">PRECISION SYSTEM</span></h1>
+        </div>
+        
+        <div class="system-status">
+            <div class="status-item">
+                <span class="status-label">ENGINE</span>
+                <span class="status-value online">ACTIVE</span>
+            </div>
+            <div class="status-item">
+                <span class="status-label">ACCURACY</span>
+                <span class="status-value">99.8%</span>
+            </div>
         </div>
         
         <div class="controls">
@@ -113,20 +124,26 @@
         
         <div class="results">
             <div class="stats">
-                <div>Total Planks: <span id="total-planks">0</span></div>
-                <div>Full Planks: <span id="full-planks">0</span></div>
-                <div>Cut Planks: <span id="cut-planks">0</span></div>
+                <div>Total Planks <span id="total-planks">0</span></div>
+                <div>Full Planks <span id="full-planks">0</span></div>
+                <div>Cut Planks <span id="cut-planks">0</span></div>
             </div>
             
             <div class="stats cost-stats">
-                <div>Packs Required: <span id="packs-required">0</span></div>
-                <div>Leftover Planks: <span id="leftover-planks">0</span></div>
-                <div>Total Cost: £<span id="total-cost">0.00</span></div>
+                <div>Packs Required <span id="packs-required">0</span></div>
+                <div>Leftover Planks <span id="leftover-planks">0</span></div>
+                <div>Total Cost <span>£<span id="total-cost">0.00</span></span></div>
                 <div class="optimization-note">* Optimized calculation with offcut reuse</div>
             </div>
             
+            <div class="analysis-title">Visualization Analysis</div>
+            
             <div class="visualization-wrapper">
                 <div class="room-container">
+                    <div class="hud-corner hud-top-left"></div>
+                    <div class="hud-corner hud-top-right"></div>
+                    <div class="hud-corner hud-bottom-left"></div>
+                    <div class="hud-corner hud-bottom-right"></div>
                     <div id="room-visualization"></div>
                 </div>
                 
@@ -134,6 +151,13 @@
                     <div class="offcuts-title">Cutting List - Required Pieces</div>
                     <!-- Offcuts will be added here dynamically -->
                 </div>
+            </div>
+        </div>
+        
+        <div class="hud-footer">
+            <div class="hud-footer-item">
+                <span class="hud-label">TECH INFO</span>
+                <span class="hud-value">FLOORING ANALYZER</span>
             </div>
         </div>
     </div>

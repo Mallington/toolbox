@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Toolbox - App Launcher</title>
+    <title>TechIQ Toolbox</title>
     <link rel="stylesheet" href="css/shared.css">
     <link rel="stylesheet" href="css/launcher.css">
 </head>
@@ -11,28 +11,52 @@
     <div class="background"></div>
     
     <div class="container">
-        <h1>Toolbox</h1>
-        <p style="text-align: center; margin-bottom: 20px;">A collection of useful tools and calculators</p>
+        <h1>TechIQ Toolbox</h1>
+        <p style="text-align: center; margin-bottom: 20px;">Advanced calculation and visualization suite</p>
+        
+        <div class="system-status">
+            <div class="status-item">
+                <span class="status-label">SYSTEM</span>
+                <span class="status-value online">ONLINE</span>
+            </div>
+            <div class="status-item">
+                <span class="status-label">APPS</span>
+                <span class="status-value">1</span>
+            </div>
+        </div>
         
         <div class="app-grid">
             <!-- Laminate Flooring Calculator Card -->
-            <div class="app-card">
-                <img src="images/laminate-flooring.jpg" alt="Laminate Flooring Calculator">
+            <div class="app-card glow-border">
+                <div class="card-image-container">
+                    <img src="images/laminate-flooring.svg" alt="Laminate Flooring Calculator">
+                    <div class="image-overlay"></div>
+                </div>
                 <div class="app-card-content">
-                    <h3>Laminate Flooring Calculator</h3>
-                    <p>Calculate and visualize how many planks of laminate flooring you'll need for a room, including cutting patterns and cost estimation.</p>
+                    <h3>Flooring Calculator</h3>
+                    <p>Advanced visualization system for calculating laminate flooring requirements, cutting patterns, and material optimization.</p>
                     <a href="apps/laminate-flooring/index.html" class="app-launch-btn">Launch</a>
                 </div>
             </div>
             
             <!-- Placeholder for future apps -->
-            <div class="app-card" style="opacity: 0.6;">
-                <img src="images/coming-soon.jpg" alt="Coming Soon">
-                <div class="app-card-content">
-                    <h3>Coming Soon</h3>
-                    <p>More tools and calculators are on the way. Check back later for updates!</p>
-                    <a href="#" class="app-launch-btn" style="pointer-events: none;">Coming Soon</a>
+            <div class="app-card glow-border">
+                <div class="card-image-container">
+                    <img src="images/coming-soon.svg" alt="Coming Soon">
+                    <div class="image-overlay"></div>
                 </div>
+                <div class="app-card-content">
+                    <h3>Advanced Suite</h3>
+                    <p>Next-generation calculation tools currently in development. Check back for system updates.</p>
+                    <a href="#" class="app-launch-btn" style="pointer-events: none;">In Development</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="hud-footer">
+            <div class="hud-footer-item">
+                <span class="hud-label">SYSTEM INFO</span>
+                <span class="hud-value">TOOLBOX INTERFACE</span>
             </div>
         </div>
     </div>

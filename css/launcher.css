@@ -1,66 +1,194 @@
 .app-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 20px;
-    margin-top: 30px;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 24px;
+    margin-top: 40px;
+    position: relative;
 }
 
 .app-card {
-    background-color: var(--container-bg);
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: var(--card-bg);
+    border-radius: 16px;
     overflow: hidden;
-    transition: transform 0.3s, box-shadow 0.3s;
+    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    box-shadow: 0 8px 30px var(--card-shadow);
+    border: 1px solid var(--card-border);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     text-decoration: none;
     color: var(--body-color);
     display: flex;
     flex-direction: column;
+    position: relative;
+    transform: translateY(0);
+}
+
+.app-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 16px;
+    padding: 1px;
+    background: linear-gradient(135deg, var(--accent-primary), transparent, var(--accent-secondary));
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 0.5;
+    transition: opacity 0.3s;
 }
 
 .app-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 14px 40px rgba(0, 42, 105, 0.2);
+}
+
+.app-card:hover::before {
+    opacity: 1;
+}
+
+.card-image-container {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    height: 160px;
+    border-bottom: 1px solid var(--card-border);
+    background-color: rgba(var(--accent-primary-rgb), 0.05);
 }
 
 .app-card img {
     width: 100%;
-    height: 150px;
-    object-fit: cover;
+    height: 100%;
+    object-fit: contain;
+    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    padding: 10px;
+    z-index: 1;
+    position: relative;
+}
+
+.image-overlay {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at center, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.2));
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 2;
+    pointer-events: none;
+}
+
+.app-card:hover .image-overlay {
+    opacity: 1;
+}
+
+.app-card:hover img {
+    filter: brightness(1.15) drop-shadow(0 0 8px rgba(var(--accent-primary-rgb), 0.5));
+    transform: scale(1.05);
 }
 
 .app-card-content {
-    padding: 20px;
+    padding: 22px;
     flex: 1;
     display: flex;
     flex-direction: column;
+    position: relative;
+    z-index: 1;
 }
 
 .app-card h3 {
-    margin: 0 0 10px 0;
+    margin: 0 0 12px 0;
     color: var(--heading-color);
-    font-size: 1.3rem;
+    font-size: 1.4rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    line-height: 1.2;
+    display: flex;
+    align-items: center;
+}
+
+.app-card h3::before {
+    content: '';
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    background-color: var(--accent-primary);
+    border-radius: 50%;
+    margin-right: 10px;
+    box-shadow: 0 0 8px var(--accent-primary);
 }
 
 .app-card p {
-    margin: 0 0 15px 0;
+    margin: 0 0 20px 0;
     color: var(--body-color);
     flex: 1;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    opacity: 0.9;
 }
 
 .app-card .app-launch-btn {
-    display: inline-block;
-    padding: 8px 15px;
-    background-color: var(--button-bg);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 20px;
+    background: var(--button-bg);
     color: var(--button-color);
     text-align: center;
-    border-radius: 4px;
-    font-weight: bold;
+    border-radius: 8px;
+    font-weight: 600;
     text-decoration: none;
     align-self: flex-start;
+    box-shadow: 0 4px 12px var(--button-shadow);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.app-card .app-launch-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(rgba(255, 255, 255, 0.15), transparent);
+    opacity: 0;
+    transition: opacity 0.3s;
 }
 
 .app-card .app-launch-btn:hover {
-    background-color: var(--button-hover-bg);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px var(--button-shadow);
+}
+
+.app-card .app-launch-btn:hover::before {
+    opacity: 1;
+}
+
+.app-card .app-launch-btn::after {
+    content: '→';
+    margin-left: 8px;
+    transition: transform 0.3s ease;
+}
+
+.app-card .app-launch-btn:hover::after {
+    transform: translateX(4px);
+}
+
+.disabled-card {
+    position: relative;
+    overflow: hidden;
+}
+
+.disabled-card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, var(--container-bg), transparent);
+    opacity: 0.4;
+    z-index: 1;
+    pointer-events: none;
 }
 
 /* Fancy animated background for the page */
@@ -71,34 +199,303 @@
     width: 100%;
     height: 100%;
     z-index: -1;
-    background: linear-gradient(45deg, rgba(52, 152, 219, 0.05), rgba(46, 204, 113, 0.05));
+    overflow: hidden;
 }
 
 .background span {
     position: absolute;
     border-radius: 50%;
-    background: rgba(52, 152, 219, 0.1);
+    background: radial-gradient(circle at center, rgba(96, 165, 250, 0.3), rgba(96, 165, 250, 0));
+    z-index: -1;
+    transform-origin: center;
+    animation-duration: var(--duration);
+    animation-timing-function: cubic-bezier(0.21, 0.53, 0.29, 0.8);
+    animation-iteration-count: infinite;
+    filter: blur(4px);
 }
 
-@media (prefers-color-scheme: dark) {
-    .background {
-        background: linear-gradient(45deg, rgba(52, 152, 219, 0.1), rgba(46, 204, 113, 0.1));
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+        opacity: var(--opacity);
     }
-    
-    .background span {
-        background: rgba(52, 152, 219, 0.15);
+    50% {
+        transform: scale(1.1);
+        opacity: var(--opacity) * 0.7;
     }
+    100% {
+        transform: scale(1);
+        opacity: var(--opacity);
+    }
+}
+
+@keyframes float {
+    0% {
+        transform: translate(0, 0);
+    }
+    50% {
+        transform: translate(var(--x), var(--y));
+    }
+    100% {
+        transform: translate(0, 0);
+    }
+}
+
+/* Stark-inspired HUD elements */
+.hud-corner {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    border-color: var(--accent-primary);
+    opacity: 0.6;
+    z-index: 1;
+}
+
+.hud-top-left {
+    top: 5px;
+    left: 5px;
+    border-top: 2px solid;
+    border-left: 2px solid;
+    border-top-left-radius: 4px;
+}
+
+.hud-top-right {
+    top: 5px;
+    right: 5px;
+    border-top: 2px solid;
+    border-right: 2px solid;
+    border-top-right-radius: 4px;
+}
+
+.hud-bottom-left {
+    bottom: 5px;
+    left: 5px;
+    border-bottom: 2px solid;
+    border-left: 2px solid;
+    border-bottom-left-radius: 4px;
+}
+
+.hud-bottom-right {
+    bottom: 5px;
+    right: 5px;
+    border-bottom: 2px solid;
+    border-right: 2px solid;
+    border-bottom-right-radius: 4px;
+}
+
+.app-card:hover .hud-corner {
+    border-color: var(--accent-secondary);
+    opacity: 1;
+    box-shadow: 0 0 5px rgba(var(--accent-secondary-rgb), 0.5);
+}
+
+/* Page subtitle with tech styling */
+.page-subtitle {
+    text-align: center;
+    margin-bottom: 20px;
+    position: relative;
+    padding: 0 20px;
+    display: inline-block;
+    width: 100%;
+}
+
+.page-subtitle::before, 
+.page-subtitle::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: 80px;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--accent-primary), transparent);
+}
+
+.page-subtitle::before {
+    left: 30%;
+}
+
+.page-subtitle::after {
+    right: 30%;
 }
 
 /* Add some responsive adjustments */
 @media (max-width: 768px) {
     .app-grid {
-        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+        gap: 20px;
+    }
+    
+    .page-subtitle::before {
+        left: 20%;
+        width: 60px;
+    }
+    
+    .page-subtitle::after {
+        right: 20%;
+        width: 60px;
     }
 }
 
 @media (max-width: 480px) {
     .app-grid {
         grid-template-columns: 1fr;
+        gap: 16px;
+        margin-top: 30px;
+    }
+    
+    .app-card h3 {
+        font-size: 1.3rem;
+    }
+    
+    .page-subtitle::before,
+    .page-subtitle::after {
+        width: 40px;
+    }
+}
+
+/* Add the STARK UI system status components */
+.system-status {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-bottom: 30px;
+    padding: 8px;
+    position: relative;
+}
+
+.system-status::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 300px;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--accent-primary), transparent);
+}
+
+.system-status::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 300px;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--accent-primary), transparent);
+}
+
+.status-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.status-label {
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    color: var(--accent-primary);
+    opacity: 0.8;
+    margin-bottom: 5px;
+}
+
+.status-value {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--accent-secondary);
+    letter-spacing: 0.5px;
+}
+
+.status-value.online {
+    color: var(--accent-tertiary);
+    position: relative;
+    padding-left: 16px;
+}
+
+.status-value.online::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 8px;
+    height: 8px;
+    background-color: var(--accent-tertiary);
+    border-radius: 50%;
+    animation: pulse 1.5s infinite;
+}
+
+/* Footer HUD elements */
+.hud-footer {
+    margin-top: 40px;
+    display: flex;
+    justify-content: space-between;
+    padding-top: 15px;
+    border-top: 1px solid var(--glass-border);
+    font-size: 0.8rem;
+}
+
+.hud-footer-item {
+    display: flex;
+    flex-direction: column;
+}
+
+.hud-label {
+    font-size: 0.65rem;
+    font-weight: 500;
+    letter-spacing: 1px;
+    color: var(--accent-primary);
+    opacity: 0.7;
+    margin-bottom: 2px;
+}
+
+.hud-value {
+    color: var(--body-color);
+    opacity: 0.9;
+    font-size: 0.85rem;
+    font-family: 'SF Mono', monospace;
+}
+
+/* Responsive adjustments for HUD elements */
+@media (max-width: 768px) {
+    .system-status::before,
+    .system-status::after {
+        width: 200px;
+    }
+}
+
+@media (max-width: 480px) {
+    .system-status {
+        gap: 20px;
+    }
+    
+    .system-status::before,
+    .system-status::after {
+        width: 150px;
+    }
+    
+    .hud-footer {
+        flex-direction: column;
+        gap: 10px;
+        align-items: center;
+    }
+    
+    .hud-footer-item {
+        align-items: center;
+    }
+}
+
+/* Add RGB variables for all accent colors for use in rgba() */
+:root {
+    --accent-primary-rgb: 0, 112, 243; /* #0070f3 */
+    --accent-secondary-rgb: 255, 56, 96; /* #ff3860 */
+    --accent-tertiary-rgb: 57, 231, 95; /* #39e75f */
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --accent-primary-rgb: 96, 165, 250; /* #60a5fa */
+        --accent-secondary-rgb: 244, 63, 94; /* #f43f5e */
+        --accent-tertiary-rgb: 74, 222, 128; /* #4ade80 */
     }
 } 

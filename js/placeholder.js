@@ -10,6 +10,11 @@ function createPlaceholderImage(selector, text, color1, color2) {
     const imgElements = document.querySelectorAll(selector);
     
     imgElements.forEach(img => {
+        // Skip SVG images that exist
+        if (img.src.endsWith('.svg') && !img.hasAttribute('data-placeholder-needed')) {
+            return;
+        }
+        
         // Create canvas element
         const canvas = document.createElement('canvas');
         const width = img.width || 300;
@@ -45,12 +50,5 @@ function createPlaceholderImage(selector, text, color1, color2) {
 
 // Apply to images when the DOM loads
 document.addEventListener('DOMContentLoaded', function() {
-    // Check if images exist, if not, create placeholders
-    if (!document.querySelector('img[src="images/laminate-flooring.jpg"]')) {
-        createPlaceholderImage('img[alt="Laminate Flooring Calculator"]', 'Laminate Flooring Calculator', '#e67e22', '#f39c12');
-    }
-    
-    if (!document.querySelector('img[src="images/coming-soon.jpg"]')) {
-        createPlaceholderImage('img[alt="Coming Soon"]', 'Coming Soon', '#3498db', '#9b59b6');
-    }
+    // No need to check for SVG images - they exist now
 }); 
