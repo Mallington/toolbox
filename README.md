@@ -1,8 +1,24 @@
-# Laminate Flooring Calculator
+# Toolbox
+
+A collection of useful web-based tools and calculators. Each tool works standalone in your browser without requiring any server-side components.
+
+## Structure
+
+The Toolbox is designed as a collection of separate apps with a central launcher. Each app is self-contained in its own directory.
+
+- `/index.html` - Main app launcher
+- `/css/` - Contains shared and app-launcher CSS
+- `/js/` - Contains shared JavaScript files
+- `/images/` - Shared images
+- `/apps/` - Contains all the individual apps
+
+## Current Apps
+
+### Laminate Flooring Calculator
 
 A simple, responsive web application that helps you visualize and calculate how many pieces of laminate flooring you'll need for a rectangular room.
 
-## Features
+#### Features
 
 - Select from predefined room presets based on floor plans or use custom dimensions
 - Input the dimensions of your rectangular room
@@ -19,53 +35,25 @@ A simple, responsive web application that helps you visualize and calculate how 
 ## How to Use
 
 1. Open `index.html` in any modern web browser
-2. Either:
-   - Select a preset room from the dropdown menu, or
-   - Enter your custom room dimensions (width and length in meters)
-   - Use "Flip Room Width/Length" to swap dimensions if needed
-3. Specify the plank dimensions (width and length in centimeters)
-4. Enter pack details:
-   - Number of planks per pack
-   - Price per pack
-5. Choose layout options:
-   - Flip Plank Width/Length: Toggle to swap plank dimensions
-   - Starting Corner: Top Left (default), Top Right, Bottom Left, or Bottom Right
-   - Offset Ratio: No offset, 50% (Half), 33% (Third), 25% (Quarter), or Custom
-6. Click "Calculate & Visualize" to see the results
+2. Select the app you want to use from the launcher
+3. Each app has its own instructions and functionality
 
-The results will show:
-- Visualization: Full planks in darker orange, cut planks in lighter orange
-- Plank statistics: Total, full, and cut planks
-- Cost calculations: Number of packs required, leftover planks, and total cost
+## Adding New Apps
 
-## Room Presets
+The Toolbox is designed to easily add new apps:
 
-The application includes presets for the following rooms:
-
-**Ground Floor:**
-- Entrance Hall (3.10m x 0.90m)
-- Lounge (5.10m x 3.50m)
-- Kitchen/Diner (2.63m x 4.60m)
-- Conservatory (3.03m x 4.26m)
-
-**1st Floor:**
-- Bedroom 1 (3.83m x 4.60m)
-- Bedroom 2 (Ioana's Office) (2.70m x 2.70m)
-- Bedroom 3 (Mat's Office) (2.70m x 1.80m)
-- Shower Room (1.80m x 1.70m)
-
-## Default Values
-
-- Default plank size: 128.5 × 19.2cm (common laminate flooring dimension)
-- Default pack size: 6 planks per pack
-- Default price: £22.65 per pack
+1. Create a new directory under `/apps/`
+2. Implement your app using the shared CSS framework for consistent styling
+3. Add your app to the launcher by updating the main `index.html`
 
 ## Technical Details
 
-This application is built with:
-- HTML5
-- CSS3 (with a responsive design)
-- Vanilla JavaScript (no frameworks required)
+- The Toolbox is built with:
+  - HTML5
+  - CSS3 (with responsive design)
+  - Vanilla JavaScript (no frameworks required)
+- Each app follows a modular structure to prevent style conflicts
+- Dark mode support via CSS variables and `prefers-color-scheme`
 
 ## Running the Application
 
